@@ -43,7 +43,26 @@ INSTALLED_APPS = [
     'social_django',
     'users',
     'notes',
+    'social_django',
+
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '211234567890-abc123def456.apps.googleusercontent.com'  
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'GOCSPX-xyzABC1234567890'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email', 'profile']
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
+
+LOGIN_REDIRECT_URL = '/api/oauth/success/'
+
+LOGOUT_REDIRECT_URL = '/'
+ 
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -55,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'noteservice.urls'
